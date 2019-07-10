@@ -1,12 +1,23 @@
+// https://qiita.com/Kazunori-Kimura/items/29038632361fba69de5e
+// https://stackoverflow.com/a/51442854
+
 const xlsx = require('xlsx');
 const utils = xlsx.utils;
 
-// read an excel file
-const book = xlsx.readFile('sample.xlsx');
-const sheet = book.Sheets['hogesheet'];
-const cell = sheet['C3'];
-//const cell = sheet['c3']; // => failure
-console.log(`cell is ${cell.v}`); // => "cell is aaaa"
+const INPUT_XLSX = 'sample.xlsx';
+const OUTPUT_XLSX = 'sample2.xlsx';
 
-// TODO write an excel file
+// read an excel file
+const book = xlsx.readFile(INPUT_XLSX);
+const firstSheetName = book.SheetNames[0];
+const sheet = book.Sheets[firstSheetName];
+const cell = sheet['C3'];
+//const cell = sheet['c3']; // => failure セル指定時のアルファベットは大文字を使用
+console.log(`read cell is ${cell.v}`);
+
+// write an excel file
+sheet['C4'].v = `${Date.now()}`;
+//sheet['G5'].v = 'testtest'; => failure 値未設定のセルにいきなりv属性を設定できない
+console.log(`write ${sheet['C4'].v} to xlsx`);
+xlsx.writeFile(book, OUTPUT_XLSX);
 
