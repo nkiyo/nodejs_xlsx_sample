@@ -16,7 +16,7 @@ const cell = sheet['C3'];
 console.log(`read cell is ${cell.v}`);
 
 // write an excel file
-sheet['C4'].v = `${Date.now()}`;
+sheet['C4'].v = `てすと試験 ${Date.now()}`;
 //sheet['G5'].v = 'testtest'; => failure 値未設定のセルにいきなりv属性を設定できない
 console.log(`write ${sheet['C4'].v} to xlsx`);
 xlsx.writeFile(book, OUTPUT_XLSX);
