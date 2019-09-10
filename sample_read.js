@@ -12,21 +12,20 @@ const INPUT_XLSX = 'sample.xlsx';
 
 // 全シートをループで回す
 const book = xlsx.readFile(INPUT_XLSX);
-const targetSheet = "s2";
+const targetSheet = "hogesheet";
 for(const name of book.SheetNames) {
-  console.log(`sheet name is ${name}`);
+  if(name !== targetSheet) {
+    continue;
+  }
+  console.log(`${name} was found.`);
+
+  // TODO ラベル行の情報を取得
+  const sheet = book.Sheets[name];
+  const keys;
+  console.log(`label ${sheet['B2'].v}`);
+
+  // TODO データ行の情報を取得
+  const vals;
+  console.log(`label ${sheet['B3'].v}`);
 }
-
-//const firstSheetName = book.SheetNames[0];
-
-//const sheet = book.Sheets[firstSheetName];
-//const cell = sheet['C3'];
-////const cell = sheet['c3']; // => failure セル指定時のアルファベットは大文字を使用
-//console.log(`read cell is ${cell.v}`);
-//
-//// write an excel file
-//sheet['C4'].v = `てすと試験 ${Date.now()}`;
-////sheet['G5'].v = 'testtest'; => failure 値未設定のセルにいきなりv属性を設定できない
-//console.log(`write ${sheet['C4'].v} to xlsx`);
-//xlsx.writeFile(book, OUTPUT_XLSX);
 
