@@ -23,6 +23,9 @@ for(const name of book.SheetNames) {
   const rangeVal = utils.decode_range(range);
   console.log(`${rangeVal}`);
   for(let r = rangeVal.s.r; r <= rangeVal.e.r; r++) {
+    // TODO r === 2 のとき、ヘッダ行専用処理を実行する
+    // TODO c === 'B' のセルが目当ての文字列のとき、データ行専用処理を実行する
+
     for(let c = rangeVal.s.c; c <= rangeVal.e.c; c++) {
       const adr = utils.encode_cell({c:c, r:r});
       const cell = sheet[adr];
