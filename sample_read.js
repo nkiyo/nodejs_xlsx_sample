@@ -1,9 +1,6 @@
 // https://qiita.com/Kazunori-Kimura/items/29038632361fba69de5e
 // https://stackoverflow.com/a/51442854
-
-// TODO
-// - 全行を取得
-// - ヘッダ行, データ行, 空行を区別して取得
+// https://qiita.com/indometacin/items/020513f7801a040dab33
 
 const xlsx = require('xlsx');
 const utils = xlsx.utils;
@@ -17,15 +14,22 @@ for(const name of book.SheetNames) {
   if(name !== targetSheet) {
     continue;
   }
-  console.log(`${name} was found.`);
+  console.log(`Reading ${name}.`);
 
-  // TODO ラベル行の情報を取得
+  // データが存在する範囲のセルをループで回す
   const sheet = book.Sheets[name];
-  const keys;
-  console.log(`label ${sheet['B2'].v}`);
-
-  // TODO データ行の情報を取得
-  const vals;
-  console.log(`label ${sheet['B3'].v}`);
+  let range = sheet['!ref'];
+  console.log(`${range}`);
+  const rangeVal = utils.decode_range(range);
+  console.log(`${rangeVal}`);
+  for(let r = rangeVal.s.r; r <= rangeVal.e.r; r++) {
+    for(let c = rangeVal.s.c; c <= rangeVal.e.c; c++) {
+      const adr = utils.encode_cell({c:c, r:r});
+      const cell = sheet[adr];
+      if(typeof cell !== "undefined") {
+        console.log(`${adr} value:${cell.v}`);
+      }
+    }
+  }
 }
 
