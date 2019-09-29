@@ -4,8 +4,8 @@
 // https://qiita.com/indometacin/items/020513f7801a040dab33
 
 const xlsx = require("xlsx");
-
 const { utils } = xlsx;
+const info = require("debug")("info");
 
 // 抽出条件の指定
 // -  Excelファイルパス
@@ -21,7 +21,7 @@ for (const name of book.SheetNames) {
   if (name !== targetSheet) {
     continue;
   }
-  console.log(`Reading a sheet "${name}" in a book "${xlsxFile}".`);
+  info(`Reading a sheet "${name}" in a book "${xlsxFile}".`);
 
   // データが存在する範囲のセルをループで回す
   const sheet = book.Sheets[name];
@@ -56,6 +56,6 @@ for (const name of book.SheetNames) {
       // }
     }
   }
-  console.log(`keys are ${keys.map(k => `"${k}"`)}.`);
-  console.log(`target val are ${vals.map(v => `"${v}"`)}.`);
+  info(`keys are ${keys.map(k => `"${k}"`)}.`);
+  info(`target val are ${vals.map(v => `"${v}"`)}.`);
 }
